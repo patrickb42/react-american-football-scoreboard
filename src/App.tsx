@@ -31,7 +31,6 @@ function App() {
       </section>
       <section className="buttons">
         <div className="homeButtons">
-          {/* TODO STEP 4 - Now we need to attach our state setter functions to click listeners. */}
           <button className="homeButtons__touchdown"
               onClick={addPoinstToTeam(lionsScore, setLionsScore, 7)}>
             Home Touchdown
