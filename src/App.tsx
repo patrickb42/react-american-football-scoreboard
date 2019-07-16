@@ -11,16 +11,15 @@ function App() {
     score: number;
     setScore: React.Dispatch<React.SetStateAction<number>>;
   }
-  const lionsData = { score: lionsScore, setScore: setLionsScore };
-  const tigerData = { score: tigersScore, setScore: setTigersScore };
+  const lionsData: TeamData = { score: lionsScore, setScore: setLionsScore };
+  const tigersData: TeamData = { score: tigersScore, setScore: setTigersScore };
 
   interface AddPointsToTeamArg {
-    score: number;
-    setScore: React.Dispatch<React.SetStateAction<number>>;
+    team: TeamData;
     points: number;
   }
-  const addPointsToTeam = ({ score, setScore, points }: AddPointsToTeamArg) => {
-    return () => setScore(score + points);
+  const addPointsToTeam = ({ team, points }: AddPointsToTeamArg) => {
+    return () => team.setScore(team.score + points);
   };
 
   return (
@@ -42,29 +41,21 @@ function App() {
       <section className="buttons">
         <div className="homeButtons">
           <button className="homeButtons__touchdown"
-              onClick={addPointsToTeam({ score: lionsScore, setScore: setLionsScore, points: 7 })}>
+              onClick={addPointsToTeam({ team: lionsData, points: 7 })}>
             Home Touchdown
           </button>
           <button className="homeButtons__fieldGoal"
-              onClick={addPointsToTeam({ score: lionsScore, setScore: setLionsScore, points: 3 })}>
+              onClick={addPointsToTeam({ team: lionsData, points: 3 })}>
             Home Field Goal
           </button>
         </div>
         <div className="awayButtons">
           <button className="awayButtons__touchdown"
-              onClick={addPointsToTeam({
-                score: tigersScore,
-                setScore: setTigersScore,
-                points: 7,
-              })}>
+              onClick={addPointsToTeam({ team: tigersData, points: 7 })}>
             Away Touchdown
           </button>
           <button className="awayButtons__fieldGoal"
-              onClick={addPointsToTeam({
-                score: tigersScore,
-                setScore: setTigersScore,
-                points: 3,
-              })}>
+              onClick={addPointsToTeam({ team: tigersData, points: 3 })}>
             Away Field Goal
           </button>
         </div>
