@@ -7,11 +7,21 @@ function App() {
   const [lionsScore, setLionsScore] = useState(0);
   const [tigersScore, setTigersScore] = useState(0);
 
-  const addPoinstToTeam = (
-    teamScore: number,
-    teamScoreSetter: React.Dispatch<React.SetStateAction<number>>,
-    points: number,
-  ) => () => teamScoreSetter(teamScore + points);
+  interface TeamData {
+    score: number;
+    setScore: React.Dispatch<React.SetStateAction<number>>;
+  }
+  const lionsData = { score: lionsScore, setScore: setLionsScore };
+  const tigerData = { score: tigersScore, setScore: setTigersScore };
+
+  interface AddPointsToTeamArg {
+    score: number;
+    setScore: React.Dispatch<React.SetStateAction<number>>;
+    points: number;
+  }
+  const addPointsToTeam = ({ score, setScore, points }: AddPointsToTeamArg) => {
+    return () => setScore(score + points);
+  };
 
   return (
     <div className="container">
@@ -32,21 +42,29 @@ function App() {
       <section className="buttons">
         <div className="homeButtons">
           <button className="homeButtons__touchdown"
-              onClick={addPoinstToTeam(lionsScore, setLionsScore, 7)}>
+              onClick={addPointsToTeam({ score: lionsScore, setScore: setLionsScore, points: 7 })}>
             Home Touchdown
           </button>
           <button className="homeButtons__fieldGoal"
-              onClick={addPoinstToTeam(lionsScore, setLionsScore, 3)}>
+              onClick={addPointsToTeam({ score: lionsScore, setScore: setLionsScore, points: 3 })}>
             Home Field Goal
           </button>
         </div>
         <div className="awayButtons">
           <button className="awayButtons__touchdown"
-              onClick={addPoinstToTeam(tigersScore, setTigersScore, 7)}>
+              onClick={addPointsToTeam({
+                score: tigersScore,
+                setScore: setTigersScore,
+                points: 7,
+              })}>
             Away Touchdown
           </button>
           <button className="awayButtons__fieldGoal"
-              onClick={addPoinstToTeam(tigersScore, setTigersScore, 3)}>
+              onClick={addPointsToTeam({
+                score: tigersScore,
+                setScore: setTigersScore,
+                points: 3,
+              })}>
             Away Field Goal
           </button>
         </div>
